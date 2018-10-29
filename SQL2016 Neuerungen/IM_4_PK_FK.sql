@@ -1,0 +1,21 @@
+CREATE TABLE Products
+(
+ProductID INT CONSTRAINT pk_products_pid PRIMARY KEY NONCLUSTERED HASH (ProductID) WITH (BUCKET_COUNT = 10000),
+ProductName VARCHAR(25)
+) WITH ( MEMORY_OPTIMIZED = ON, DURABILITY = SCHEMA_AND_DATA);
+GO
+CREATE TABLE ProductSales
+(
+SalesID INT CONSTRAINT pk_productSales_sid PRIMARY KEY NONCLUSTERED HASH (SalesID) WITH (BUCKET_COUNT = 10000),
+ProductID INT CONSTRAINT fk_productSales_pid FOREIGN KEY REFERENCES Products(ProductID),
+SalesPerson VARCHAR(25)
+) WITH ( MEMORY_OPTIMIZED = ON, DURABILITY = SCHEMA_AND_DATA);
+GO
+
+
+-- Insert Values to see
+INSERT INTO Products VALUES (1, 'SQLAuthority');
+-- Success
+INSERT INTO ProductSales VALUES (1, 1, 'Pinal');
+-- Error
+INSERT INTO ProductSales VALUES (2, 2, 'Dave');

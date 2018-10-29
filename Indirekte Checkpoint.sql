@@ -1,0 +1,1 @@
+Indirekte Checkpoints anstatt Automatischen Checkpoints
